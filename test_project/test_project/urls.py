@@ -21,14 +21,15 @@ from django.contrib.auth.views import LoginView
 
 from django_registration.backends.one_step.views import RegistrationView
 
+from chat.views import ChatRegistrationView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
     path('chat/', include('chat.urls')),
     
     path('', LoginView.as_view(), name='login_page'),
-    path('register/', 
-        RegistrationView.as_view(success_url=reverse_lazy('index')), 
-        name='django_registration_register'),
+    path('register/', ChatRegistrationView.as_view(), name='django_registration_register'),
     path('', include('django_registration.backends.one_step.urls')),
     path('', include('django.contrib.auth.urls')),
 ]
