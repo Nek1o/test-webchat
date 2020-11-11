@@ -4,20 +4,22 @@
 
 {% block content %}
     Yo shit <br>
-    <input id="room-name-input" type="text" size="100"><br>
-    <input id="room-name-submit" type="button" value="Enter">
-
-    <script>
-        document.querySelector('#room-name-input').focus();
-        document.querySelector('#room-name-input').onkeyup = function(e) {
+    <form method="post">
+        {% csrf_token %}
+        <input id="messenger-name-input" name="other_user_name" type="text" size="100"><br>
+        <input id="messenger-name-submit" type="submit" value="Enter">
+    </form>
+    <!-- <script>
+        document.querySelector('#messenger-name-input').focus();
+        document.querySelector('#messenger-name-input').onkeyup = function(e) {
             if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#room-name-submit').click();
+                document.querySelector('#messenger-name-submit').click();
             }
         };
 
-        document.querySelector('#room-name-submit').onclick = function(e) {
-            let roomName = document.querySelector('#room-name-input').value;
-            window.location.pathname = '/chat/' + roomName + '/';
+        document.querySelector('#messenger-name-submit').onclick = function(e) {
+            let messengerName = document.querySelector('#messenger-name-input').value;
+            window.location.pathname = '/chat/' + messengerName + '/';
         };
-    </script>
+    </script> -->
 {% endblock %}
