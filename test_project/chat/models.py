@@ -3,6 +3,15 @@ from django.contrib.auth.models import User
 
 import datetime
 
+class ChatUser(models.Model):
+    user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+    banned = models.BooleanField(default=False)
+    username = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name = 'ChatUser'
+        verbose_name_plural = 'ChatUsers'
+
 class ChatSession(models.Model):
     users = models.ManyToManyField(User)
 
