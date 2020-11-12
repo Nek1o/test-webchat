@@ -10,7 +10,7 @@
     {{ user|json_script:"user" }}
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
-        
+
         const chatSocket = new WebSocket(
             'ws://'
             + window.location.host
@@ -22,6 +22,9 @@
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
             document.querySelector('#chat-log').value += (data.message + '\n');
+            
+            chatLog = document.getElementById('chat-log');
+            chatLog.scrollTop = chatLog.scrollHeight;
         };
 
         chatSocket.onclose = function(e) {
