@@ -45,8 +45,8 @@ def room(request, room_id):
     session = ChatSession.objects.get(id=int(room_id))
     print(session.users)
 
-    # if session:
-        # raise PermissionDenied
+    if user not in session.users.all():
+        raise PermissionDenied
 
     return render(request, 'chat/room.html', {
         'room_id': room_id,
