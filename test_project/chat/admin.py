@@ -23,18 +23,18 @@ class MessageAdmin(admin.ModelAdmin):
         return obj.session.id
     get_session_id.short_description = 'session id'
 
-class ChatSessionAdmin(admin.ModelAdmin):
-    list_display = ['get_user_one', 'get_user_two']
+# class ChatSessionAdmin(admin.ModelAdmin):
+#     list_display = ['get_user_one', 'get_user_two']
 
-    def get_user_one(self, obj):
-        return User.objects.filter(chat_session__id=obj.id)[0]
-    get_user_one.short_description = "User one"
+#     def get_user_one(self, obj):
+#         return User.objects.filter(chat_session__id=obj.id)[0]
+#     get_user_one.short_description = "User one"
 
-    def get_user_two(self, obj):
-        return User.objects.filter(chat_session__id=obj.id)[1]
-    get_user_two.short_description = "User two"
+#     def get_user_two(self, obj):
+#         return User.objects.filter(chat_session__id=obj.id)[1]
+#     get_user_two.short_description = "User two"
     
 
 admin.site.register(ChatUser, ChatAdmin)
-admin.site.register(ChatSession, ChatSessionAdmin)
+admin.site.register(ChatSession)
 admin.site.register(Message, MessageAdmin)
