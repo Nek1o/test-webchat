@@ -1,51 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %} Room {% endblock %}
 
 {% block content %}
+<div class="container registration-container form-holder">
     <textarea readonly id="chat-log" cols="100" rows="20"></textarea><br>
     <input id="chat-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
+    <input id="chat-message-submit" type="button" value="Send" class="a-reverse-button mt-3">
     {{ room_id|json_script:"room-name" }}
     {{ user|json_script:"user" }}
     <script>
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
-
-        const chatSocket = new WebSocket(
-            'ws://'
-            + window.location.host
-            + '/ws/'
-            + roomName
-            + '/'
-        );
-
-        chatSocket.onmessage = function(e) {
-            const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += (data.message + '\n');
-            
-            chatLog = document.getElementById('chat-log');
-            chatLog.scrollTop = chatLog.scrollHeight;
-        };
-
-        chatSocket.onclose = function(e) {
-            console.error('Chat socket closed unexpectedly');
-        };
-
-        document.querySelector('#chat-message-input').focus();
-        document.querySelector('#chat-message-input').onkeyup = function(e) {
-            if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#chat-message-submit').click();
-            }
-        };
-
-        document.querySelector('#chat-message-submit').onclick = function(e) {
-            const messageInputDom = document.querySelector('#chat-message-input');
-            const message = messageInputDom.value;
-            // let name = document.getElementById('user').textContent;
-            chatSocket.send(JSON.stringify({
-                'message': message
-            }));
-            messageInputDom.value = '';
-        };
+        const _0x15e9=['#chat-message-input','value','Chat\x20socket\x20closed\x20unexpectedly','onclose','send','/ws/','textContent','room-name','focus','#chat-message-submit','location','parse','getElementById','querySelector','keyCode','click','chat-log','stringify','ws://','scrollHeight'];(function(_0x562658,_0x15e999){const _0x1d7bf5=function(_0x57fc5b){while(--_0x57fc5b){_0x562658['push'](_0x562658['shift']());}};_0x1d7bf5(++_0x15e999);}(_0x15e9,0x19b));const _0x1d7b=function(_0x562658,_0x15e999){_0x562658=_0x562658-0x0;let _0x1d7bf5=_0x15e9[_0x562658];return _0x1d7bf5;};const _0x3c90d1=_0x1d7b,roomName=JSON[_0x3c90d1('0x0')](document[_0x3c90d1('0x1')](_0x3c90d1('0x10'))[_0x3c90d1('0xf')]),chatSocket=new WebSocket(_0x3c90d1('0x7')+window[_0x3c90d1('0x13')]['host']+_0x3c90d1('0xe')+roomName+'/');chatSocket['onmessage']=function(_0x57fc5b){const _0x39ff3e=_0x3c90d1,_0x5db4cd=JSON[_0x39ff3e('0x0')](_0x57fc5b['data']);document[_0x39ff3e('0x2')]('#chat-log')[_0x39ff3e('0xa')]+=_0x5db4cd['message']+'\x0a',chatLog=document[_0x39ff3e('0x1')](_0x39ff3e('0x5')),chatLog['scrollTop']=chatLog[_0x39ff3e('0x8')];},chatSocket[_0x3c90d1('0xc')]=function(_0x2fcb50){const _0x4a85ca=_0x3c90d1;console['error'](_0x4a85ca('0xb'));},document[_0x3c90d1('0x2')](_0x3c90d1('0x9'))[_0x3c90d1('0x11')](),document[_0x3c90d1('0x2')](_0x3c90d1('0x9'))['onkeyup']=function(_0xd5197d){const _0x5e0d5a=_0x3c90d1;_0xd5197d[_0x5e0d5a('0x3')]===0xd&&document[_0x5e0d5a('0x2')]('#chat-message-submit')[_0x5e0d5a('0x4')]();},document[_0x3c90d1('0x2')](_0x3c90d1('0x12'))['onclick']=function(_0x59fe7b){const _0xd8b5c4=_0x3c90d1,_0x5ea6be=document[_0xd8b5c4('0x2')](_0xd8b5c4('0x9')),_0x64855f=_0x5ea6be['value'];chatSocket[_0xd8b5c4('0xd')](JSON[_0xd8b5c4('0x6')]({'message':_0x64855f})),_0x5ea6be[_0xd8b5c4('0xa')]='';};
     </script>
+</div>
 {% endblock %}

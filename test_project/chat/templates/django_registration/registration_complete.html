@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'RegistrationStyle.css' %}" />
+<link rel="stylesheet" href="{% static 'FormStyle.css' %}" />
+{% endblock head %}
+
 {% block title %} Done! {% endblock %}
 
 {% block content %}
