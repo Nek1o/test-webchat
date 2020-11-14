@@ -31,8 +31,14 @@ class IndexView(View):
 
             return redirect('/chat/' + str(new_chat_session.id) + '/') 
         
-        context = { 'form': form, 'errors': form.errors } 
-        return render(request, 'chat/index.html', context)
+        if form.data['other_user_name'] != request.user.username:
+            error = "You can't chat with yourself"
+            context = { 'form': form, 'error': error } 
+            return render(request, 'chat/index.html', context)
+        else:
+            error = "There is no user named " + form.data['other_user_name']
+            context = { 'form': form, 'error': error } 
+            return render(request, 'chat/index.html', context)
 
 # room_id == ChatSession.id
 
