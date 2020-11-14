@@ -24,18 +24,14 @@ class IndexView(View):
         return render(request, 'chat/index.html', context)
 
     def post(self, request, *args, **kwargs):
-        print(request.POST)
         form = EnterChatRoomForm(data=request.POST)
 
-        if form.is_valid():
+        if form.is_valid() and form.data['other_user_name'] != request.user.username:
             new_chat_session = get_or_create_chat_session(request.user.username, form.data['other_user_name'])
 
-            print(new_chat_session.id)
-
-            return redirect('/chat/' + str(new_chat_session.id) + '/') # ???
+            return redirect('/chat/' + str(new_chat_session.id) + '/') 
         
-        print('enter form isnt valid')
-        context = { 'form': form, 'errors': form.errors } # ???
+        context = { 'form': form, 'errors': form.errors } 
         return render(request, 'chat/index.html', context)
 
 # room_id == ChatSession.id
@@ -43,7 +39,6 @@ class IndexView(View):
 def room(request, room_id):
     user = User.objects.get(username=request.user.username)
     session = ChatSession.objects.get(id=int(room_id))
-    print(session.users)
 
     if user not in session.users.all():
         raise PermissionDenied
