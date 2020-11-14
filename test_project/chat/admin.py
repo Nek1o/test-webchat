@@ -27,11 +27,11 @@ class ChatSessionAdmin(admin.ModelAdmin):
     list_display = ['get_user_one', 'get_user_two']
 
     def get_user_one(self, obj):
-        return User.objects.filter(chatsessions__id=obj.id)[0]
+        return User.objects.filter(chat_session__id=obj.id)[0]
     get_user_one.short_description = "User one"
 
     def get_user_two(self, obj):
-        return User.objects.filter(chatsessions__id=obj.id)[1]
+        return User.objects.filter(chat_session__id=obj.id)[1]
     get_user_two.short_description = "User two"
     
 
