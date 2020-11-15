@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.core.exceptions import PermissionDenied
 from django.views import View
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django_registration.backends.one_step.views import RegistrationView
 
@@ -16,7 +18,9 @@ class ChatRegistrationView(RegistrationView):
 
 # views
 
-class IndexView(View):
+class IndexView(LoginRequiredMixin, View):
+    login_url = '/'
+
     def get(self, request, *args, **kwargs):
         form = EnterChatRoomForm()
         context = { 'form': form }
@@ -42,6 +46,7 @@ class IndexView(View):
 
 # room_id == ChatSession.id
 
+@login_required(login_url='/')
 def room(request, room_id):
     user = User.objects.get(username=request.user.username)
     session = ChatSession.objects.get(id=int(room_id))
